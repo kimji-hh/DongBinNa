@@ -1,8 +1,8 @@
 # 왕실의 나이트
 
 coor = input()
-row = coor[0]
-column = coor[1] - int(ord('a')) + 1 # a의 아스키코드값 97을 빼서 +1하면 b를 의미한다.
+row = int(coor[1])
+column = int(ord(coor[0])) - int(ord('a')) + 1 # a의 아스키코드값 97을 빼서 1을 의미
 steps = [(-2, -1), (-2, 1), (2, -1), (2, 1), (-1, 2), (-1, -2),(1, -2), (1, 2)]
 
 result = 0
