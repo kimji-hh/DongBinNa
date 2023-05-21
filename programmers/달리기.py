@@ -1,36 +1,24 @@
-# 9h 40m start
-# 추월한 선수의 이름을 부른다.
-# 1등부터 3등까지
+# 리스트에서 특정 value를 가지고 find하기 어려우므로 딕셔너리를 사용한다.
+# 특정 value(이름)을 호출하면 등수를 변경하는 방식
 
-# players = 선수들의 이름이 1등부터 순서대로 담긴 문자열 배열
-# callings = 해설진이 부른 추월한 선수 이름
-# 경주가 끝났을때 선수들의 이름을 1등부터 순서대로 배열에 담아 return 하는 solution 함수
 
 def solution(players, callings):
     answer = []
-    # players 조건(알파벳 소문자)
-    for i in range(len(players)):
-        if players[i].isupper() == True:
-            players[i] = players[i].lower() 
-            print(players[i])
-        for j in range(i + 1, len(players)):
-            if players[i] == players[j]:
-                return
-        
-        if len(players[i]) < 3 or len(players[i]) > 10:
-            break
-# callings 이름 불린 애는 이전 애와 자리 바꾸기
-    for i in range(len(callings)):
-        if len(callings[i]) < 2 or len(callings[i]) > 1000000:
-            return
-        
-        if callings[i] not in players:
-            return
+    hashmap = dict()
+    
+    # hashmap에 players 값 넣기. 
+    # len(array)하지 않고 바로 넣기 위해 enumerate()사용
+    # index와 value(선수이름) 넣기
+    for i, v in enumerate(players):
+        hashmap[v] = i
+    
+    # callings 
+    for call in callings:
+        # pre = call한 선수 이름의 등수 - 1, post = call한 선수 이름의 등수
+        pre, post = hashmap[call] - 1,hashmap[call]
 
-        for j in range(1, len(players)):
-            if callings[i] == players[j]:
-                players[j], players[j-1] = players[j-1], players[j]
-        
+        # hashmap, players 모두 교체
+        # hashmap은 이름만 들어가야하므로 players를 통해 이름 얻기
+        hashmap[players[pre]], hashmap[players[post]] = post, pre # index
+        players[pre], players[post] = players[post], players[pre] # 이름값
     return players
-
-
